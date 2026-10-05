@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The History of America</title>
+<style>
+  :root {
+    --navy: #0a2240;
+    --red: #b22234;
+    --blue: #3c3b6e;
+    --cream: #f7f4ee;
+    --ink: #1c2430;
+    --muted: #5a6572;
+    --gold: #c9a227;
+    --line: #e2ddd2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.7;
+  }
+
+  /* ---------- Header / Hero ---------- */
+  header.hero {
+    position: relative;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(60,59,110,.9), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, #122e52 55%, var(--blue) 100%);
+    color: #fff;
+    padding: 5rem 1.5rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  header.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 42px),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 2px, transparent 2px 42px);
+    pointer-events: none;
+  }
+
+  .hero .stars {
+    color: var(--gold);
+    letter-spacing: .5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    letter-spacing: .04em;
+    text-shadow: 0 3px 18px rgba(0,0,0,.5);
+  }
+
+  .hero .subtitle {
+    margin-top: 1rem;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    color: #d7e2f0;
+    font-style: italic;
+  }
+
+  .hero .flags {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+    letter-spacing: .4rem;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.toc {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10,34,64,.96);
+    backdrop-filter: blur(6px);
+    border-bottom: 3px solid var(--red);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .25rem;
+    padding: .6rem;
+  }
+
+  nav.toc a {
+    color: #e9eef5;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: .82rem;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    transition: background .2s, color .2s;
+    white-space: nowrap;
+  }
+
+  nav.toc a:hover { background: var(--red); color: #fff; }
+
+  /* ---------- Layout ---------- */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .intro {
+    font-size: 1.15rem;
+    color: var(--muted);
+    border-left: 5px solid var(--gold);
+    padding-left: 1.2rem;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  section.era {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 70px;
+  }
+
+  section.era h2 {
+    font-size: 1.7rem;
+    color: var(--navy);
+    display: flex;
+    align-items: baseline;
+    gap: .8rem;
+    border-bottom: 2px solid var(--line);
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
+  }
+
+  section.era h2 .years {
+    font-family: system-ui, sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--red);
+    padding: .2rem .6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  section.era p { margin-bottom: 1rem; }
+
+  section.era p:last-child { margin-bottom: 0; }
+
+  /* ---------- Timeline ---------- */
+  .timeline {
+    list-style: none;
+    margin: 1.5rem 0;
+    position: relative;
+    padding-left: 1.6rem;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--gold), var(--red));
+  }
+
+  .timeline li {
+    position: relative;
+    margin-bottom: 1.1rem;
+    padding-left: .5rem;
+  }
+
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: -1.6rem;
+    top: .5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--navy);
+  }
+
+  .timeline .year {
+    font-family: system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--red);
+    margin-right: .5rem;
+  }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--blue);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 6px 20px rgba(10,34,64,.06);
+  }
+
+  .callout h3 {
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    color: var(--blue);
+    margin-bottom: .5rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* ---------- Quote ---------- */
+  blockquote {
+    background: var(--navy);
+    color: #f0f4fa;
+    padding: 1.6rem 1.8rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    font-size: 1.15rem;
+    font-style: italic;
+    position: relative;
+  }
+
+  blockquote::before {
+    content: "\201C";
+    font-size: 4rem;
+    color: var(--gold);
+    position: absolute;
+    top: -.4rem;
+    left: .6rem;
+    opacity: .6;
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: .8rem;
+    font-size: .9rem;
+    font-style: normal;
+    color: #b9c8dd;
+    text-align: right;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--navy);
+    color: #c3cee0;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-family: system-ui, sans-serif;
+    font-size: .85rem;
+    border-top: 5px solid var(--red);
+  }
+
+  footer .flag {
+    font-size: 1.4rem;
+    letter-spacing: .3rem;
+    margin-bottom: .5rem;
+  }
+
+  @media (max-width: 560px) {
+    nav.toc a { font-size: .74rem; padding: .3rem .55rem; }
+    section.era h2 { flex-direction: column; gap: .4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="stars">★ ★ ★ ★ ★</div>
+  <h1>The History of America</h1>
+  <p class="subtitle">From ancient civilizations to a modern nation — a journey through the centuries</p>
+  <div class="flags">🇺🇸</div>
+</header>
+
+<nav class="toc">
+  <a href="#precolumbian">Pre-Columbian</a>
+  <a href="#colonial">Colonial Era</a>
+  <a href="#revolution">Revolution</a>
+  <a href="#expansion">Expansion</a>
+  <a href="#civilwar">Civil War</a>
+  <a href="#industrial">Industrial Age</a>
+  <a href="#worldwars">World Wars</a>
+  <a href="#modern">Modern Era</a>
+</nav>
+
+<main>
+  <p class="intro">
+    The history of America spans thousands of years, from the thriving Indigenous
+    civilizations that first cultivated the land to the founding of a republic built
+    on ideals of liberty and self-government — and through the struggles and triumphs
+    that shaped it into the nation it is today.
+  </p>
+
+  <section class="era" id="precolumbian">
+    <h2>Pre-Columbian America <span class="years">before 1492</span></h2>
+    <p>
+      Long before European contact, the Americas were home to a remarkable diversity of
+      Indigenous peoples. In North America, cultures such as the Mississippians built
+      great earthen mounds at places like Cahokia, while the Ancestral Puebloans raised
+      cliff dwellings in the Southwest. Along the coasts and plains, hundreds of
+      distinct nations developed sophisticated systems of agriculture, trade, and
+      governance.
+    </p>
+    <ul class="timeline">
+      <li><span class="year">~15,000 BCE</span> Ancestors of Native Americans cross into the continent during the last Ice Age.</li>
+      <li><span class="year">~1000 CE</span> Norse explorers briefly settle at L'Anse aux Meadows in Newfoundland.</li>
+      <li><span class="year">~1050 CE</span> Cahokia flourishes as the largest pre-Columbian city north of Mexico.</li>
+    </ul>
+  </section>
+
+  <section class="era" id="colonial">
+    <h2>Colonial Era <span class="years">1492 – 1763</span></h2>
+    <p>
+      Christopher Columbus's voyage of 1492 opened the Atlantic world to European
+      exploration. Spain claimed vast territories in the South and West, France
+      established trading networks along the Mississippi and in Canada, and England
+      founded its first lasting settlement at Jamestown in 1607. The Pilgrims arrived
+      at Plymouth in 1620, and over the following century thirteen distinct British
+      colonies took shape along the eastern seaboard.
+    </p>
+    <div class="callout">
+      <h3>Turning Point</h3>
+      <p>The French and Indian War (1754–1763) left Britain with enormous debts — debts it sought to repay by taxing the American colonies, setting the stage for revolution.</p>
+    </div>
+  </section>
+
+  <section class="era" id="revolution">
+    <h2>Revolution &amp; Founding <span class="years">1765 – 1789</span></h2>
+    <p>
+      Grievances over taxation without representation ignited protest, then war. The
+      Declaration of Independence was adopted on <strong>July 4, 1776</strong>, proclaiming
+      that "all men are created equal." After victory at Yorktown in 1781 and the Treaty
+      of Paris in 1783, the new nation drafted the Constitution in 1787, ratified it in
+      1788, and inaugurated George Washington as its first president in 1789.
+    </p>
+    <blockquote>
+      We hold these truths to be self-evident, that all men are created equal, that
+      they are endowed by their Creator with certain unalienable Rights, that among
+      these are Life, Liberty and the pursuit of Happiness.
+      <cite>— Declaration of Independence, 1776</cite>
+    </blockquote>
+  </section>
+
+  <section class="era" id="expansion">
+    <h2>Westward Expansion <span class="years">1803 – 1850s</span></h2>
+    <p>
+      The Louisiana Purchase of 1803 doubled the size of the country. Exploration by
+      Lewis and Clark mapped the new territory, while the doctrine of Manifest Destiny
+      drove settlers ever westward. Victory in the Mexican-American War added vast lands
+      in the Southwest, and the California Gold Rush of 1849 drew hundreds of thousands
+      seeking fortune. This expansion came at a devastating cost to Native peoples and
+      intensified the question of slavery's future.
+    </p>
+  </section>
+
+  <section class="era" id="civilwar">
+    <h2>Civil War &amp; Reconstruction <span class="years">1861 – 1877</span></h2>
+    <p>
+      The election of Abraham Lincoln in 1860 prompted Southern states to secede. The
+      Civil War (1861–1865) preserved the Union and, with the Emancipation Proclamation
+      and the Thirteenth Amendment, abolished slavery. Lincoln's assassination in 1865
+      cast a long shadow. Reconstruction sought to rebuild the South and integrate
+      formerly enslaved people into national life, though many of its gains were later
+      undone.
+    </p>
+    <ul class="timeline">
+      <li><span class="year">1861</span> Civil War begins at Fort Sumter.</li>
+      <li><span class="year">1863</span> Emancipation Proclamation issued.</li>
+      <li><span class="year">1865</span> Civil War ends; Thirteenth Amendment abolishes slavery.</li>
+      <li><span class="year">1868</span> Fourteenth Amendment grants citizenship and equal protection.</li>
+    </ul>
+  </section>
+
+  <section class="era" id="industrial">
+    <h2>The Industrial Age <span class="years">1870 – 1914</span></h2>
+    <p>
+      Railroads stitched the continent together, and industry transformed the economy.
+      Waves of immigrants arrived through Ellis Island, cities swelled, and inventions
+      from the telephone to the light bulb remade daily life. This era also gave rise to
+      labor movements, progressive reform, and America's emergence as a global power.
+    </p>
+  </section>
+
+  <section class="era" id="worldwars">
+    <h2>World Wars &amp; Depression <span class="years">1914 – 1945</span></h2>
+    <p>
+      America entered World War I in 1917, helping tip the balance for the Allies. The
+      roaring twenties gave way to the Great Depression after the stock market crash of
+      1929, and Franklin D. Roosevelt's New Deal reshaped the role of government. In
+      World War II, the United States mobilized as the "arsenal of democracy," fighting
+      in Europe and the Pacific until victory in 1945.
+    </p>
+    <div class="callout">
+      <h3>Remembering</h3>
+      <p>Pearl Harbor (December 7, 1941) brought the United States into World War II, forever changing its place in the world.</p>
+    </div>
+  </section>
+
+  <section class="era" id="modern">
+    <h2>The Modern Era <span class="years">1945 – present</span></h2>
+    <p>
+      The postwar decades brought the Cold War, the civil rights movement, and
+      extraordinary technological achievement. The struggle for equality — led by figures
+      such as Martin Luther King Jr. — culminated in landmark legislation like the Civil
+      Rights Act of 1964. In 1969 Americans walked on the Moon. The fall of the Berlin
+      Wall in 1989 and the digital revolution of the 1990s ushered in a new century
+      defined by globalization, innovation, and ongoing debates over the nation's
+      founding ideals.
+    </p>
+    <ul class="timeline">
+      <li><span class="year">1963</span> March on Washington; "I Have a Dream" speech.</li>
+      <li><span class="year">1964</span> Civil Rights Act signed into law.</li>
+      <li><span class="year">1969</span> Apollo 11 lands the first humans on the Moon.</li>
+      <li><span class="year">2008</span> Barack Obama elected the first African American president.</li>
+    </ul>
+  </section>
+
+  <blockquote>
+    The past is never dead. It's not even past.
+    <cite>— William Faulkner</cite>
+  </blockquote>
+</main>
+
+<footer>
+  <div class="flag">★ ★ ★</div>
+  <p>The History of America — an educational overview.</p>
+  <p>Built as a single self-contained HTML page.</p>
+</footer>
+
+</body>
+</html>
